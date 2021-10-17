@@ -1,0 +1,20 @@
+<h1> Tickets Assigned to {{ user.username }}! </h1>
+<a href = "{% url 'logout' %}" > logout</a>>
+
+
+<bre>
+</bre>
+
+    <th> Tickets </th>
+
+<form method="GET" action = "{% url 'update-ticket' random_item.id %}">
+    {% csrf_token %}
+    <button type="submit" value = {{ random_item }} >Click to Get Ticket!></button> 
+
+      
+</form>
+
+
+
+
+

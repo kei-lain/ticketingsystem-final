@@ -1,0 +1,24 @@
+<h1> Archived Tickets </h1>
+<a href = "{% url 'logout' %}" > logout</a>
+<a href = "{% url 'employee-dashboard' %}" > dashboard </a>
+<a href = "{% url 'tickets' %}" > Main Screen </a>
+
+<bre>
+
+</bre>
+
+
+<th> Completed Tickets: </th>
+
+{% for ticket in tickets %}
+<tr>
+<bre>
+    <td>{{ticket.briefDescription}}</td>
+    <td><a href ="{% url 'ticket' ticket.id %}" > Details</a></td>
+    <td><a href="{% url 'update-ticket' ticket.id %}"> update</a></td>
+    <br>
+    <br>
+</tr>
+{%empty%}
+<h3> No Tickets to display</h3>
+{%endfor%}

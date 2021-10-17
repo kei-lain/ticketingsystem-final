@@ -1,0 +1,28 @@
+{% if user.is_authenticated %}
+<h1> Tickets Created by {{ user.username }}! </h1>
+<a href = "{% url 'logout' %}" > logout</a>
+<a href = "{% url 'ticket-create' %}" > Create Ticket </a>
+{% else %}
+<h1> Welcome Friend , please log in </h1>
+<a href = "{% url 'login' %}" > login</a>
+<a href = "{% url 'account_signup' %}" > signup </a>
+{% endif %}
+<bre>
+</bre>
+</form>
+
+<tr>
+    <th> Tickets </th>
+</tr>
+{% for ticket in tickets %}
+<tr>
+    <td>{{ticket.briefDescription}}</td>
+    <td><a href ="{% url 'ticket' ticket.id %}" > Details</a></td>
+    <td><a href="{% url 'update-ticket' ticket.id %}"> update</a></td>
+    <td><a href="{% url 'delete-ticket' ticket.id %}" >delete</a></td>
+    <br>
+    <br>
+</tr>
+{%empty%}
+<h3> No Tickets to display</h3>
+{%endfor%}
