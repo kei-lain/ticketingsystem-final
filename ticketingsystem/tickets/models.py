@@ -55,6 +55,9 @@ class Ticket (models.Model):
 	    ordering= ['complete'] 
 
 
+    
+
+
 
 
 

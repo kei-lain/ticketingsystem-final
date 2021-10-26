@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
+from rest_framework import routers
+from tickets import views 
 
+router = routers.DefaultRouter()
+router.register(r'tickets',views.TicketViewSet, 'tickets')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tickets.urls')),
     path('accounts/', include('allauth.urls'), name='accounts'),
     path('', include('auth2.urls')),
-    path ('send/', include('send.urls'))
+    path('send/', include('send.urls')),
+    path('api/' , include(router.urls)),
+   
 ]

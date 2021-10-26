@@ -10,11 +10,18 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.mail import send_mail
+from rest_framework import viewsets
+from .serializers import TicketSerializer 
 
 from django.urls import  reverse_lazy
 import random
 from .models import Ticket, Person
 # Create your views here.
+
+class TicketViewSet(viewsets.ModelViewSet):
+    serializer_class = TicketSerializer
+    queryset = Ticket.objects.all()
 
 class ticketView(LoginRequiredMixin, ListView):
     model = Ticket
@@ -29,10 +36,12 @@ class ticketDetail(LoginRequiredMixin, DetailView):
     model  = Ticket
     context_object_name = 'ticket'
 
+
 class ticketCreate(LoginRequiredMixin, CreateView):
     model = Ticket
     fields = '__all__'
     success_url = reverse_lazy('tickets')
+
 
     
     
@@ -41,6 +50,7 @@ class ticketUpdate(LoginRequiredMixin, UpdateView):
     model = Ticket
     fields = '__all__'
     success_url = reverse_lazy('tickets')
+
 
 class ticketDelete(LoginRequiredMixin, DeleteView):
 	model = Ticket
@@ -55,6 +65,7 @@ class employeeDashboard(PermissionRequiredMixin,ListView):
     context_object_name = 'tickets'
     template_name = 'tickets/employee_dashboard.html'
     permission_required = 'is_staff'
+
     # def dispatch(self, request, *args, **kwargs):
     #         if not request.user.is_staff:
     #             logout(request)
@@ -82,6 +93,8 @@ class archivedTickets(PermissionRequiredMixin,ListView):
     context_object_name = 'tickets'
     template_name = 'tickets/ticket_archive.html'
     permission_required = 'is_staff'
+    
+
     # def dispatch(self, request, *args, **kwargs):
     #         if not request.user.is_staff:
     #             logout(request)
@@ -92,6 +105,8 @@ class archivedTickets(PermissionRequiredMixin,ListView):
 	    context = super().get_context_data(**kwargs)
 	    context['tickets'] = context['tickets'].filter(complete=True)
 	    return context
+
+
     
     
     
