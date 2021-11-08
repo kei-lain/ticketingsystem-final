@@ -1,6 +1,7 @@
 
 <!doctype html>
 {% load static %}
+{% load react %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -40,6 +41,7 @@
       <!-- Navbar danger -->
 
               <!-- Menu -->
+              
               <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
                   <li class="nav-item">
@@ -50,9 +52,10 @@
               <div class="card shadow">
                 <div class="card-body">
                   <div class="tab-content" id="myTabContent">
+                    
                     {% if user.is_authenticated %}
                       <h2> Tickets Created by {{ user.username }}! </h2>
-                        
+                      <h3> Tickets </h3>
                         <a href = "{% url 'logout' %}" > logout</a>
                         <a href = "{% url 'ticket-create' %}" > Create Ticket </a>
                         {% else %}
@@ -65,16 +68,18 @@
                         </form>
 
                     <tr>
-                        <th> Tickets </th>
                     </tr>
                     {% for ticket in tickets %}
-                    <tr>
+                    <TABLE>
+                      <TR>
                         <td>{{ticket.briefDescription}}</td>
                         <td><a href ="{% url 'ticket' ticket.id %}" > Details</a></td>
                         <td><a href="{% url 'update-ticket' ticket.id %}"> update</a></td>
                         <td><a href="{% url 'delete-ticket' ticket.id %}" >delete</a></td>
                         <br>
-                        <br>
+                      </TR>
+                   </TABLE>
+                    <tr>
                     </tr>
                     {%empty%}
                     <h3> No Tickets to display</h3>

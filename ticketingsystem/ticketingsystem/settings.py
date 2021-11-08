@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_react_templatetags',
+    'allauth.socialaccount.providers.google',
     
     
 ]
