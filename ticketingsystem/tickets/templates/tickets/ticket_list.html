@@ -45,7 +45,10 @@
               <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="{% url 'tickets' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Home</a>
+                    <a class="nav-link mb-sm-3 mb-md-0 active"  href="{% url 'tickets' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Home</a>
+                    {% if request.user.is_staff %}
+                      <a class="nav-link mb-sm-3 mb-md-0 active"   href="{% url 'employee-dashboard' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Dashboard</a>
+                    {% endif %}
                   </li>
                 </ul>
               </div>

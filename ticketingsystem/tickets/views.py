@@ -62,7 +62,6 @@ class ticketDelete(LoginRequiredMixin, DeleteView):
 
 class employeeDashboard(PermissionRequiredMixin,ListView):
     model = Ticket
-    context_object_name = 'tickets'
     template_name = 'tickets/employee_dashboard.html'
     permission_required = 'is_staff'
 
@@ -78,14 +77,16 @@ class employeeDashboard(PermissionRequiredMixin,ListView):
     
     
     def get_context_data(self, **kwargs):
-        items = Ticket.objects.all()
-        context_object_name = 'tickets'
-        random_item = random.choice(items)
+        items = Ticket.objects.filter(complete=False)
         context = super().get_context_data(**kwargs)
-        context['tickets'] = context['tickets']
-        if random_item:
-            context['random_item'] = random_item
+        context['tickets'] = items
         return(context)
+        # random_item = random.choice(items)
+        # context = super().get_context_data(**kwargs)
+        # context['tickets'] = context['tickets']
+        # if random_item:
+        #     context['random_item'] = random_item
+        # return(context)
         
     
 class archivedTickets(PermissionRequiredMixin,ListView):
