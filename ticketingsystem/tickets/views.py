@@ -29,7 +29,7 @@ class ticketView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
 	    context = super().get_context_data(**kwargs)
-	    context['tickets'] = context['tickets'].filter(user=self.request.user)
+	    context['tickets'] = context['tickets'].filter(user=self.request.user, complete=False)
 	    return context
 
 class ticketDetail(LoginRequiredMixin, DetailView):
@@ -93,7 +93,7 @@ class archivedTickets(PermissionRequiredMixin,ListView):
     model = Ticket
     context_object_name = 'tickets'
     template_name = 'tickets/ticket_archive.html'
-    permission_required = 'is_staff'
+    # permission_required = 'is_staff'
     
 
     # def dispatch(self, request, *args, **kwargs):
@@ -104,9 +104,16 @@ class archivedTickets(PermissionRequiredMixin,ListView):
 
     def get_context_data(self, **kwargs):
 	    context = super().get_context_data(**kwargs)
-	    context['tickets'] = context['tickets'].filter(complete=True)
+	    context['tickets'] = context['tickets'].filter(complete=True, user=self.request.user)
 	    return context
 
+class UserProfileView(LoginRequiredMixin):
+    model = Person
+    template_name = 'tickets/profile.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["person"] = User() 
+        return context
 
     
     
