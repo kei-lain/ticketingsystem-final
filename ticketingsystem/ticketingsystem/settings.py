@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'tickets',
     'send',
     'allauth',
+    'django_filters',
     'allauth.account',
     'allauth.socialaccount',
     'django_react_templatetags',

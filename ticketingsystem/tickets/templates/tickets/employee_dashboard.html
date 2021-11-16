@@ -64,19 +64,31 @@
     </bre>
     <bre>
     </bre>
+{% comment %} <form method="get">
+      <button class="btn btn-primary" types="submit" >Search</button>
+</form> {% endcomment %}
+
+<form method="get"> {{ searchfilter.form }} 
+  <button class="btn btn-primary" types="submit" >Search</button>
+</form>
+
 {% comment %} 
 <form method="GET" action = "{% url 'update-ticket' random_item.id %}">
     {% csrf_token %}
     <button type="submit" value = {{ random_item }} >Click to Get Ticket!></button>  {% endcomment %}
 <TABLE>
-    {% for ticket in tickets %}
-    <tr>{{ ticket }}
-        <a href ="{% url 'ticket' ticket.id %}" > Details</a>
-        <a href="{% url 'update-ticket' ticket.id %}"> update</a>
-        <br>
-        </br>
-    </tr>
-    {% endfor %}
+    {% if tickets == 0 %}
+      <h3>No tickets to display<h3>
+    {% else %}
+      {% for ticket in tickets %}
+      <tr>{{ ticket }}
+          <a href ="{% url 'ticket' ticket.id %}" > Details</a>
+          <a href="{% url 'update-ticket' ticket.id %}"> update</a>
+          <br>
+          </br>
+      </tr>
+      {% endfor %}
+    {% endif %}
 <TABLE>      
 
 

@@ -13,6 +13,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.mail import send_mail
 from rest_framework import viewsets
 from .serializers import TicketSerializer 
+from django.db.models import Q
+from .filters import TicketSearchFilter
 
 from django.urls import  reverse_lazy
 import random
@@ -65,12 +67,8 @@ class employeeDashboard(PermissionRequiredMixin,ListView):
     template_name = 'tickets/employee_dashboard.html'
     permission_required = 'is_staff'
 
-    # def dispatch(self, request, *args, **kwargs):
-    #         if not request.user.is_staff:
-    #             logout(request)
-    #             return self.handle_no_permission()
-    #         return super(LogoutIfNotStaffMixin,self).dispatch( *args, **kwargs)
-    
+
+
     def get_queryset(self):
         employeeDashboard().queryset = super().get_queryset().all()
         return(super().get_queryset()).all()
@@ -78,22 +76,22 @@ class employeeDashboard(PermissionRequiredMixin,ListView):
     
     def get_context_data(self, **kwargs):
         items = Ticket.objects.filter(complete=False)
+        searchfilter = TicketSearchFilter(self.request.GET, queryset=items)
         context = super().get_context_data(**kwargs)
+        context['searchfilter'] = searchfilter
         context['tickets'] = items
-        return(context)
-        # random_item = random.choice(items)
-        # context = super().get_context_data(**kwargs)
-        # context['tickets'] = context['tickets']
-        # if random_item:
-        #     context['random_item'] = random_item
-        # return(context)
+        return context 
+    
+    # def searchtickets(request):
+    #     context['object_list'] = Ticket.objects.filter(briefdescription__icontains=request.GET.get('search'))
+    #     return context      
         
     
 class archivedTickets(PermissionRequiredMixin,ListView):
     model = Ticket
     context_object_name = 'tickets'
     template_name = 'tickets/ticket_archive.html'
-    # permission_required = 'is_staff'
+    permission_required = 'is_staff'
     
 
     # def dispatch(self, request, *args, **kwargs):
