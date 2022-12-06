@@ -1,0 +1,29 @@
+ <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 active"  href="{% url 'tickets' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Home</a>
+                    {% if request.user.is_staff %}
+                     <p> <a class="nav-link mb-sm-3 mb-md-0 active"   href="{% url 'employee-dashboard' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Dashboard</a></p>
+                    {% endif %}
+                    <p> <a class="nav-link mb-sm-3 mb-md-0 active"   href="{% url 'ticket-archive' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Archive</a></p>
+                  </li>
+                </ul>
+              </div>
+<h1> Ticket: </h1>
+<bre>
+</bre>
+<p> {{ ticket }}</p>
+<p> {{ ticket.user }}</p>
+<p> {{ ticket.date }}</p>
+<p> {{ ticket.briefDescription }}</p>
+<p> {{ ticket.description }}</p>
+<p> {{ ticket.complete }}</p>
+<p> {{ ticket.siteAffected }}</p>
+
+
+
+
+
+
+
+

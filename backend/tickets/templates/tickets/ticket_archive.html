@@ -1,0 +1,79 @@
+
+<!doctype html>
+{% load static %}
+{% load react %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">=
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <title>
+    Ticketing System
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="{%  static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="{% static 'css/argon-design-system.css?v=1.2.2' %}" rel="stylesheet" />
+</head>
+
+
+      <!-- Navbar primary -->
+    
+      <!-- Navbar success -->
+     
+      <!-- Navbar danger -->
+
+              <!-- Menu -->
+              
+              <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 active"  href="{% url 'tickets' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Home</a>
+                    {% if request.user.is_staff %}
+                     <p> <a class="nav-link mb-sm-3 mb-md-0 active"   href="{% url 'employee-dashboard' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Dashboard</a></p>
+                    {% endif %}
+                    <p> <a class="nav-link mb-sm-3 mb-md-0 active"   href="{% url 'ticket-archive' %}" role="tab" aria-controls="tabs-text-1" aria-selected="true">Archive</a></p>
+                  </li>
+                </ul>
+              </div>
+<h1> Archived Tickets </h1>
+<a href = "{% url 'logout' %}" > logout</a>
+<a href = "{% url 'employee-dashboard' %}" > dashboard </a>
+<a href = "{% url 'tickets' %}" > Main Screen </a>
+
+<bre>
+
+</bre>
+
+
+<th> Completed Tickets: </th>
+
+{% for ticket in tickets %}
+<tr>
+<bre>
+    <td>{{ticket.briefDescription}}</td>
+    <td><a href ="{% url 'ticket' ticket.id %}" > Details</a></td>
+    <td><a href="{% url 'update-ticket' ticket.id %}"> update</a></td>
+    <br>
+    <br>
+</tr>
+{%empty%}
+<h3> No Tickets to display</h3>
+{%endfor%}
